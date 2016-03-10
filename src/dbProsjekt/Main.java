@@ -22,13 +22,15 @@ public class Main {
 	public void useScanner() throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String valg = br.readLine();
+        Kobling kobling = new Kobling();
+        Connection conn = kobling.getConnection();
+
         
-        if(valg.equals("1")) System.out.println("Valgte 1");
+        if(valg.equals("1")){
+        	RegOkt regOkt = new RegOkt(conn,br);
+        }
         else if (valg.equals("2")){
-        	RegOvelse regOvelse = new RegOvelse();
-        	Kobling kobling = new Kobling();
-    		regOvelse.showOvelse();
-        	regOvelse.insertOvelse(kobling.getConnection(), br);
+        	RegOvelse regOvelse = new RegOvelse(conn,br);
         }
         else System.out.println("Valgte 3");
         

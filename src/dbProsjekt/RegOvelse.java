@@ -10,6 +10,12 @@ import java.util.Scanner;
 
 public class RegOvelse {
 	
+	
+	public RegOvelse(Connection conn, BufferedReader br) throws Exception{
+		showOvelse();
+		insertOvelse(conn,br);
+	}
+	
 	public void insertOvelse(Connection conn, BufferedReader br) throws Exception{
 		PreparedStatement myStmt = conn.prepareStatement("Insert into Ovelse (OvelseNavn, Beskrivelse) values (?,?)");
 		
@@ -33,14 +39,13 @@ public class RegOvelse {
 		System.out.println("Allerede registrerte øvelser:");
 		ReturnColumn rC = new ReturnColumn();
 		rC.listOvelser();
-		
 	}
 	
+	
+
+	
 	public static void main(String[] args) throws SQLException, Exception {
-		RegOvelse regOvelse = new RegOvelse();
-		Kobling kobling = new Kobling();
-		regOvelse.showOvelse();
-		//regOvelse.insertOvelse(kobling.getConnection());
+		
 	}
 
 }
