@@ -34,7 +34,9 @@ public class MakeTable {
 			String k = "";
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM Okt");
+			final Object[][] table = new String[4][0];
 			while (rs.next()) {
+				table[0] = new String[] {rs.getString(1), rs.getString(2), rs.getString(3)};
 				k = rs.getString(1) + "|" + rs.getString(2) + "|" + rs.getString(3);
 				System.out.println(k);
 			}
@@ -45,7 +47,6 @@ public class MakeTable {
 	
 	public static void main(String[] args) throws Exception{
 		MakeTable mt = new MakeTable();
-		mt.tableOvelse();
 		mt.tableOkt();
 	}
 }
