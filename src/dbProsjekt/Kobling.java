@@ -21,7 +21,6 @@ public class Kobling {
 			
 			Class.forName(driver); 
 			conn = DriverManager.getConnection(url,username,passord);
-			System.out.println("Connection");
 		}catch(Exception e){System.out.println(e);}
 		return conn;
 	}
