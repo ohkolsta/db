@@ -16,20 +16,36 @@ public class MakeTable {
 			String k = "";
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM Ovelse");
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			System.out.println("Number of columns: " + columnsNumber);
 			while (rs.next()) {
-			    for(int i = 1; i < columnsNumber; i++){
-			        for(int j = 2; j <= columnsNumber; j++){
-			        	k = rs.getString(i) + " " + "| " + rs.getString(j) + " ";
-			        	System.out.println(k);
-			        }
-			    }
+				k = rs.getString(1) + " " + "| " + rs.getString(2) + " ";
+				System.out.println(k);
 			}
 		} catch(Exception e) {
 			System.out.println(e);
 		}
 	}
-
+	
+	public void tableOkt() throws Exception{
+		Kobling kobling = new Kobling();
+		Connection conn = kobling.getConnection();
+		ResultSet rs = null;
+		Statement st = null;
+		try{
+			String k = "";
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM Okt");
+			while (rs.next()) {
+				k = rs.getString(1) + "|" + rs.getString(2) + "|" + rs.getString(3);
+				System.out.println(k);
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public static void main(String[] args) throws Exception{
+		MakeTable mt = new MakeTable();
+		mt.tableOvelse();
+		mt.tableOkt();
+	}
 }
