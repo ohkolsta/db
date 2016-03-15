@@ -45,6 +45,7 @@ public class DisplayOkter {
 				k = rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3);
 				System.out.println(k);
 			}
+			System.out.println("\n");
 		} catch(Exception e) {
 			System.out.println(e);
 		}

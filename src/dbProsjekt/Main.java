@@ -34,8 +34,30 @@ public class Main {
         }
         else if (valg.equals("3")){
         	DisplayOkter display = new DisplayOkter(conn,br);
+        }
+        else if (valg.equals("4")){
+        	Statistikk.results3000();
         	
-        }else{
+        	String valg2 = "";
+        	while (valg2 != "meny" || valg2 != "ferdig"){
+        		System.out.println("Skriv meny eller ferdig");
+        		valg2 = br.readLine();
+        		if (valg2.toLowerCase().equals("meny")){
+        			
+        			printMenu();
+        			useScanner();
+        			break;
+        		}
+        		else if(valg2.toLowerCase().equals("ferdig")){
+        			
+        			break;
+        		}
+        	}
+        	
+        	
+        	
+        }
+        else{
         	System.out.println("Velg 1, 2 eller 3");
         }
         br.close();
@@ -46,7 +68,8 @@ public class Main {
 		System.out.println("Tast inn hva du ønsker å gjøre");
 		System.out.println("1. Registrer en økt");
 		System.out.println("2. Legg til en øvelse i databasen");
-		System.out.println("3. Hent/se på tidligere økt\n");
+		System.out.println("3. Hent/se på tidligere økt");
+		System.out.println("4. Hent/se på statistikk for 3000 meter\n");
 		System.out.print("Ditt valg: ");
 	}
 	
