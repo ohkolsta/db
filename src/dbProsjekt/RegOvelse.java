@@ -32,6 +32,12 @@ public class RegOvelse {
 		myStmt.executeUpdate();
 		
 		System.out.println("\nInsert complete");
+		System.out.println("\n\n\n\n");
+		
+		Main main = new Main ();
+		main.printMenu();
+		main.useScanner();
+		br.close();
 		
 	}
 	

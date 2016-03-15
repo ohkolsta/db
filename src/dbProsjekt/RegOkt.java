@@ -14,6 +14,7 @@ public class RegOkt {
     Connection conn;
     Statement st;
     ResultSet rs;
+    Main main = new Main ();
 	
 	public RegOkt(Connection conn, BufferedReader br) throws Exception {
 		sjekkOvelser(br);
@@ -24,12 +25,16 @@ public class RegOkt {
 	}
 	
 	public void sjekkOvelser(BufferedReader br) throws Exception{
-		System.out.println("Før du begynner må du sjekke om alle øvelsene du skal legge er tilgjengelig");
+		System.out.println("Før du begynner må du sjekke om alle øvelsene du skal legge til er tilgjengelig");
+		System.out.println("\n");
 		showOvelse();
 		System.out.print("Hvis ja, skriv ja og fortsett registreringen. Hvis nei, skriv nei og gå tilbake menyen: ");
 		
 		if(br.readLine().toLowerCase().equals("nei")){
-			System.out.println("Gå tilbake til meny");
+			System.out.println("\n\n\n\n");
+			main.printMenu();
+			main.useScanner();
+			br.close();
 		}
 	}
 
@@ -96,8 +101,10 @@ public class RegOkt {
 		
 		}
 		
-		System.out.println("Jess");
-		
+		System.out.println("\n\n\n\n");
+		main.printMenu();
+		main.useScanner();
+		br.close();
 		
 	}
 	
