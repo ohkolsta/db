@@ -1,9 +1,11 @@
 package dbProsjekt;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 public class DisplayOkter {
@@ -16,20 +18,59 @@ public class DisplayOkter {
 		System.out.println("Skriv inn tall på økt du vil se eller ferdig for å tilbake");
 		String valg = br.readLine();
 		
-		try{
-			int number = Integer.parseInt(br.readLine());
-			listOkt(valg);
-			
-		} catch(NumberFormatException e) {
+		if(inputIsNumber(valg)){
+			try{
+				if(hasRowsListOkt(valg)){
+					listOkt(valg);
+				} else {
+					System.out.println("Denne økten finnes ikke.");
+				}
+			}catch(Exception e) {
+				System.out.println("Ugyldig tall");
+			}
+			printReturnToMenu();
+			goToMenu();
+		} else {
 			if(valg.equalsIgnoreCase("ferdig")){
-				main.useScanner();
-				printMenu();
+				goToMenu();
 			} else {
-				System.out.println("Feil input. Returnerer til meny");
-				main.useScanner();
-				printMenu();
+				System.out.println("Ugyldig kommando.");
+				printReturnToMenu();
+				goToMenu();
 			}
 		}
+	}
+	
+	public boolean hasRowsListOkt(String oktNumber) throws Exception{
+		Kobling kobling = new Kobling();
+		Connection conn = kobling.getConnection();
+		ResultSet rs = null;
+		Statement st = null;
+		st = conn.createStatement();
+		rs = st.executeQuery("SELECT * FROM Okt INNER JOIN OktOvelser ON ((Okt.OktId = OktOvelser.OktId) AND (Okt.OktId = '"+oktNumber+"'))");
+		if(rs.next()){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void printReturnToMenu(){
+		System.out.println("Returnerer til meny.. \n");
+	}
+	
+	public void goToMenu() throws Exception{
+		Main main = new Main();
+		main.printMenu();
+		main.useScanner();
+	}
+	
+	public boolean inputIsNumber(String valg){
+		try{
+			int number = Integer.parseInt(valg);
+		}catch(NumberFormatException e){
+			return false;
+		}return true;
 	}
 	
 	public void listAllOkter() throws Exception{
@@ -41,14 +82,15 @@ public class DisplayOkter {
 			String k = "";
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM Okt");
+			ResultSetMetaData rsmd = rs.getMetaData();
+			System.out.println(rsmd.getColumnName(1) + "| " + rsmd.getColumnName(2) + "       | " + rsmd.getColumnName(3));
 			while (rs.next()) {
-				k = rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3);
+				k = rs.getString(1) + "    | " + rs.getString(2) + " | " + rs.getString(3);
 				System.out.println(k);
 			}
-			System.out.println("\n");
 		} catch(Exception e) {
 			System.out.println(e);
-		}
+		} System.out.println("\n");
 	}
 	
 	public void listOkt(String oktNumber) throws Exception{
@@ -62,8 +104,10 @@ public class DisplayOkter {
 			String k = "";
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM Okt INNER JOIN OktOvelser ON ((Okt.OktId = OktOvelser.OktId) AND (Okt.OktId = '"+oktNumber+"'))");
+			ResultSetMetaData rsmd = rs.getMetaData();
+			System.out.println(rsmd.getColumnName(1) + "| " + rsmd.getColumnName(2) + "       | " + rsmd.getColumnName(3));
 			if (rs.next()) {
-				k = rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3);
+				k = rs.getString(1) + "    | " + rs.getString(2) + " | " + rs.getString(3);
 				System.out.println(k);
 			}
 		} catch(Exception e) {
@@ -79,35 +123,6 @@ public class DisplayOkter {
 			}
 		} catch(Exception e) {
 			System.out.println(e);
-		}
+		} System.out.println("\n");
 	}
-	
-	public void insertOkt(Connection conn, BufferedReader br) throws Exception{
-		PreparedStatement myStmt1 = conn.prepareStatement("Insert into Okt (Dato, Varighet) values (?,?)");
-		
-		System.out.print("Skriv inn dato for økten: ");
-		String dato = br.readLine();
-		
-		System.out.print("Skriv inn varigheten av økten: ");
-		int varighet = Integer.parseInt(br.readLine());
-		
-		
-		myStmt1.setString(1, dato);
-		myStmt1.setInt(2, varighet);
-		
-		myStmt1.executeUpdate();
-		
-		System.out.println("\nInsert complete");
-	}
-	
-	public void printMenu(){
-		
-		
-		System.out.println("To valg");
-		System.out.println("1. Skrive inn navnet på øvelsen fra listen over. Øvelsen må være med i listen.");
-		System.out.println("3. Skriv 'ferdig' dersom du er ferdig med å legge til øvelser.\n");
-		
-		
-	}
-
 }
