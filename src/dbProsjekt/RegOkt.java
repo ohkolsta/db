@@ -16,8 +16,8 @@ public class RegOkt {
     ResultSet rs;
 	
 	public RegOkt(Connection conn, BufferedReader br) throws Exception {
-		//sjekkOvelser(br);
-		//insertOkt(conn,br);
+		sjekkOvelser(br);
+		insertOkt(conn,br);
 		showOvelse();
 		printMenu();
 		addOvelse(conn, br);
@@ -70,7 +70,7 @@ public class RegOkt {
 		
 		while (!(sjekk.toLowerCase().equals("ferdig"))){
 			System.out.println("Skriv inn navnet på øvelsen fra listen over eller 'ferdig':");
-			/*PreparedStatement myStmt2 = conn.prepareStatement("Insert into OktOvelser (OktId, OvelseNavn) values (?,?)");
+			PreparedStatement myStmt2 = conn.prepareStatement("Insert into OktOvelser (OktId, OvelseNavn) values (?,?)");
 			
 			int OktId = Integer.parseInt(Id);
 			String OvelseNavn = sjekk;
@@ -81,7 +81,7 @@ public class RegOkt {
 			
 			myStmt2.executeUpdate();
 			
-			System.out.println("Insert complete");*/
+			System.out.println("Insert complete");
 			
 			
 			
