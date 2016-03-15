@@ -103,13 +103,10 @@ public class DisplayOkter {
 		try{
 			String k = "";
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM Okt INNER JOIN OktOvelser ON ((Okt.OktId = OktOvelser.OktId) AND (Okt.OktId = '"+oktNumber+"'))");
+			rs = st.executeQuery("SELECT * FROM OktOvelser");
 			ResultSetMetaData rsmd = rs.getMetaData();
-			System.out.println(rsmd.getColumnName(1) + "| " + rsmd.getColumnName(2) + "       | " + rsmd.getColumnName(3));
-			if (rs.next()) {
-				k = rs.getString(1) + "    | " + rs.getString(2) + " | " + rs.getString(3);
-				System.out.println(k);
-			}
+			System.out.println("Valgt økt består av følgende øvelser:");
+			System.out.println(rsmd.getColumnName(2) + " |");
 		} catch(Exception e) {
 			System.out.println(e);
 		}
