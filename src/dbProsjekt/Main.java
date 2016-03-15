@@ -32,8 +32,12 @@ public class Main {
         else if (valg.equals("2")){
         	RegOvelse regOvelse = new RegOvelse(conn,br);
         }
-        else System.out.println("Valgte 3");
-        
+        else if (valg.equals("3")){
+        	DisplayOkter display = new DisplayOkter(conn,br);
+        	
+        }else{
+        	System.out.println("Velg 1, 2 eller 3");
+        }
         br.close();
 		
 	}

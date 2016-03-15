@@ -26,7 +26,7 @@ public class ReturnColumn {
 		}
 	}
 	
-	public void listOkter(String oktNumber) throws Exception{
+	public void listOkt(String oktNumber) throws Exception{
 		Kobling kobling = new Kobling();
 		Connection conn = kobling.getConnection();
 		ResultSet rs = null;
@@ -79,7 +79,7 @@ public class ReturnColumn {
 	
 	public static void main(String[] args) throws Exception {
 		ReturnColumn rc = new ReturnColumn();
-		rc.listOkter("2");
+		rc.listOkt("2");
 	}
 }
 
